@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ALQUILAPC</title>
+    <script src="jquery.min.js"></script>
+    <script type="text/javascript"  src="js/Computers.js"> </script>
+    <script type="text/javascript"  src="js/Clients.js"> </script>
+    <script type="text/javascript"  src="js/Messages.js"> </script>
+    <script type="text/javascript"  src="js/Reservations.js"> </script>
+
+</head>
+<body>
+
+<div class="container menu">
+    <div class="row" align="center">
+
+        <a href="/index.html">INICIO</a> &nbsp;
+        <a href="/Computers.html">COMPUTADORES</a> &nbsp;
+        <a href="/Clients.html">CLIENTES</a> &nbsp;
+        <a href="/Messages.html">MENSAJES</a>
+        <a href="/Reservation.html">RESERVACIONES</a>
+    </div>
+
+<H1 style="color:blue;" align="center">ALQUILA UN PC</H1>
+<hr size="6px" width="100%" align="center" color="gray"/>
+<hr size="5px" width="100%" align="center" color="blue"/>
+<hr size="6px" width="100%" align="center" color="gray"/>
+
+
+
+<br>
+<hr size="6px" width="100%" align="center" color="gray"/>
+<hr size="5px" width="100%" align="center" color="blue"/>
+<hr size="6px" width="100%" align="center" color="gray"/>
+
+
+<h2 style="color:blue;" align="center">MENSAJES</h2>
+<button onclick="traerMensajes()">CONSULTAR </button>
+<br>
+
+
+<div>
+    <input type="number" id="idMensaje" placeholder="Id">
+    <input type="text" id="messagetext" placeholder="Mensaje">
+</div>
+<br>
+<button onclick="guardarMensaje()">GUARDAR</button>
+<button onclick="editarMensaje()">ACTUALIZAR</button>
+
+<br>
+<hr size="6px" width="100%" align="center" color="gray"/>
+<hr size="6px" width="100%" align="center" color="gray"/>
+
+<br>
+
+</body>
+</html>

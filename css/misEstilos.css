@@ -1,0 +1,30 @@
+#formulario{
+    margin: auto;
+    width: 50%;
+    
+}
+
+#resultado{
+    margin: auto;
+    width: 100%;
+    
+}
+#lista{
+    margin: auto;
+    width: 60%;
+    
+}
+
+.resultadoList {
+    width: 80%;
+    margin: auto;
+    border: 1px solid black;
+}
+
+table th, td {
+    border: 1px solid black;
+}
+
+#btnNuevo{
+    float: right;
+}

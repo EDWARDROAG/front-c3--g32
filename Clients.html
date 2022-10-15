@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ALQUILAPC</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/Clients.js"> </script>
+    <link rel="stylesheet" href="css/misEstilos.css">
+    <!-- CSS only -->
+
+    <script>
+        $(document).ready(function () {
+            leerClientes();
+
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <div class="container menu">
+        <div class="row" align="center">
+
+            <a href="/index.html">INICIO</a> &nbsp;
+            <a href="/Computers.html">COMPUTADORES</a> &nbsp;
+            <a href="/Clients.html">CLIENTES</a> &nbsp;
+            <a href="/Messages.html">MENSAJES</a>
+            <a href="/Reservation.html">RESERVACIONES</a>
+        </div>
+
+        <H1 style="color:blue;" align="center">ALQUILA UN PC</H1>
+        <hr size="6px" width="100%" align="center" color="gray" />
+        <hr size="5px" width="100%" align="center" color="blue" />
+        <hr size="6px" width="100%" align="center" color="gray" />
+
+
+
+
+
+
+        <h2 style="color:blue;" align="center">CLIENTE</h2>
+
+
+
+
+        <div id="formulario">
+            <h3 id="titulo">Titulo</h3>
+            <input type="number" id="idCliente" placeholder="id" hidden> <br>
+            <label>Nombre:</label><input type="text" id="nombreCliente" placeholder="Nombre" required><br>
+            <label>Email:</label><input type="email" id="mailCliente" placeholder="Email" required><br>
+            <label>Edad:</label><input type="number" id="edadCliente" placeholder="Edad" required><br>
+            <label>password:</label><input type="password" id="password" placeholder="password" required><br>
+
+
+            <button onclick="mostrarLista(true)">Cancelar</button>
+            <button onclick="guardarClientes()">Guardar</button>
+
+
+        </div>
+
+      
+
+        <div id="lista">
+            <button id="btnNuevo" onclick="nuevoCliente()">Nuevo</button>
+            <div id="resultado">
+
+            </div>
+        </div>
+
+</body>
+
+</html>
