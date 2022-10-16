@@ -1,8 +1,11 @@
-urlbase = "http://localhost:8080/api/Client";
+
 listaResultados = [];
+nuevo=false;
+
+
 function leerClientes() {
   $.ajax({
-    url: urlbase + "/all",
+    url: urlClient + "/all",
     type: "GET",
     datatype: "json",
     success: function (respuesta) {
@@ -39,26 +42,27 @@ function listaClientes(items) {
   $("#resultado").append(mytable);
 }
 
-function guardarClientes(nuevo) {
+function guardarClientes() {
   let myData = {
     id: $("#idCliente").val(),
     name: $("#nombreCliente").val(),
     email: $("#mailCliente").val(),
     age: $("#edadCliente").val(),
-    password: $("#password").val(),
+    password: $("#password").val()
+    
   };
 
   console.log(myData);
   let dataTosend = JSON.stringify(myData);
 
-  urlOperation = urlbase;
+  urlOperation = urlClient;
   typeOperation = "";
   if (nuevo) {
     typeOperation='POST';
-    urlOperation+='save'
+    urlOperation+='/save'
   }else{
     typeOperation='PUT';
-    urlOperation+=''    
+    urlOperation+='/'+ myData.id   
   }
 
   $.ajax({
@@ -85,6 +89,7 @@ function guardarClientes(nuevo) {
 }
 
 function editarClientes(id) {
+  nuevo=false;
   mostrarLista(false);
   $("#titulo").text("Editar Cliente");
   var itemEncontrado = null;
@@ -103,35 +108,12 @@ function editarClientes(id) {
     $("#password").val("");
   }
 
-  // let myData = {
-  //   id: $("#idCliente").val(),
-  //   name: $("#nombreCliente").val(),
-  //   email: $("#mailCliente").val(),
-  //   age: $("#edadCliente").val(),
-  // };
-  // console.log(myData);
-  // let dataTosend = JSON.stringify(myData);
-  // $.ajax({
-  //   url: urlbase,
-  //   type: "PUT",
-  //   data: dataTosend,
-  //   datatype: "JSON",
-  //   contentType: "application/json",
-  //   success: function (respuesta) {
-  //     $("#resultado").empty();
-  //     $("#idCliente").val("");
-  //     $("#nombreCliente").val("");
-  //     $("#mailCliente").val("");
-  //     $("#edadCliente").val("");
-  //     leerClientes();
-  //     alert("se ha actualizado");
-  //   },
-  // });
+ 
 }
 
 function borrarCliente(idCliente) {
   $.ajax({
-    url: urlbase + "/" + idCliente,
+    url: urlClient + "/" + idCliente,
     type: "DELETE",
     contentType: "application/JSON",
     datatype: "JSON",
@@ -145,7 +127,7 @@ function borrarCliente(idCliente) {
 
 function nuevoCliente() {
   mostrarLista(false);
-
+  nuevo=true;
   $("#titulo").text("Nuevo Cliente");
   $("#idCliente").val("0");
   $("#nombreCliente").val("");

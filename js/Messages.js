@@ -1,98 +1,140 @@
-function traerMensajes(){
-    urlbase = "https://g391ce0240bc4d7-s3tk5yro4bhk3nc4.adb.ca-toronto-1.oraclecloudapps.com/ords/admin/message/message";
+listaResultados = [];
+nuevo = false;
 
-    $.ajax({
-      url:urlbase,
-      type:"GET",
-      datatype:"json",
-      success:function(respuesta){
-        console.log(respuesta);
-        listaMensajes(respuesta.items)
-        },
-      error: function (xhr, status) {
-        alert("hay un error");
-      },
-      });
-    }
-    function listaMensajes(items){
+function leer() {
+  $.ajax({
+    url: urlMessage + "/all",
+    type: "GET",
+    datatype: "json",
+    success: function (respuesta) {
+      listaResultados = respuesta;
+      $("#resultado").empty();
+      listar(listaResultados);
+      mostrarLista(true);
+    },
+    error: function (xhr, status) {
+      alert("hay un error");
+    },
+  });
+}
 
-    let mytable ="<table>";
-    for(i=0;i<items.length;i++){
-      mytable +="<tr>";
-      mytable += "<td>" +items[i].id+ "</td>";
-      mytable += "<td>" +items[i].messagetext+ "</td>";
-      mytable += "<td> <button onclick='borrarMensaje("+ items[i].id+")'>BORRAR</button>";
-      mytable += "</tr>"
-    }
-    mytable += "</table>";
-    $("#resultado").append(mytable);
+function listar(items) {
+  let mytable = "<table class='resultadoList'>";
+  mytable +=
+    "<tr><th>Id</th><th>Cliente</th><th>Computador</th><th>Mensaje</th></tr>";
+  for (i = 0; i < items.length; i++) {
+    mytable += "<tr>";
+    mytable += "<td>" + items[i].id + "</td>";
+    mytable += "<td>" + items[i].client.name + "</td>";
+    mytable += "<td>" + items[i].computer.name + "</td>";
+    mytable += "<td>" + items[i].message_text + "</td>";
 
-    }
-
-    function guardarMensaje(){
-      let myData={
-      id:$("#idMensaje").val(),
-      messagetext:$("#messagetext").val(),
-      };
-
-      console.log(myData);
-      let dataTosend=JSON.stringify(myData);
-      $.ajax({
-        url:urlbase,
-        type:"POST",
-        data:dataTosend,
-        datatype:"JSON",
-        contentType: 'application/json',
-        success:function(respuesta){
-          $("#resultado").empty();
-          $("#idMensaje").val("");
-          $("#Messagetext").val("");
-          traerMensajes();
-          alert("se ha guardado el dato ")
-        }
-      });
-    }
-
-    function editarMensaje(){
-      let myData={
-        id:$("#idMensaje").val(),
-        messagetext:$("#messagetext").val(),
-        };
-        console.log(myData);
-        let dataTosend=JSON.stringify(myData);
-        $.ajax({
-          url:urlbase,
-          type:"PUT",
-          data:dataTosend,
-          datatype:"JSON",
-          contentType: 'application/json',
-          success:function(respuesta){
-            $("#resultado").empty();
-            $("#idMensaje").val("");
-            $("#messagetext").val("");
-            traerMensajes();
-            alert("se ha actualizado   ")
-          }
-        });
-
-    }
-
-    function borrarMensaje(idMensaje){
-    let myData={
-    id:idMensaje
-    };
-
-    let dataTosend=JSON.stringify(myData);
-    $.ajax({
-      url:urlbase,
-        type:"DELETE",
-        data:dataTosend,
-        contentType:"application/JSON",
-        datatype:"JSON",
-        success:function(respuesta){
-          $("#resultado").empty();
-          traerMensajes();
-          alert("se ha eliminado.")
-        }
-    });
+    mytable +=
+      "<td> <button onclick='editar(" + items[i].id + ")'>Editar</button> ";
+    mytable +=
+      "     <button onclick='borrar(" +
+      items[i].id +
+      ")'>Borrar</button>   </td>";
+    mytable += "</tr>";
   }
+  mytable += "</table>";
+  $("#resultado").append(mytable);
+}
+
+function guardar() {
+  let myData = {
+    id: $("#id").val(),
+    client: { id: $("#client_id option:selected").val() },
+    computer: { id: $("#computer_id option:selected").val() },
+    message_text: $("#message").val(),
+  };
+
+  console.log(myData);
+  let dataTosend = JSON.stringify(myData);
+
+  urlOperation = urlMessage;
+  typeOperation = "";
+  if (nuevo) {
+    typeOperation = "POST";
+    urlOperation += "/save";
+  } else {
+    typeOperation = "PUT";
+    urlOperation += "/" + myData.id;
+  }
+
+  $.ajax({
+    url: urlOperation,
+    type: typeOperation,
+    data: dataTosend,
+    datatype: "JSON",
+    contentType: "application/json",
+    success: function (respuesta) {
+      if (nuevo) {
+        alert("se ha guardado el nuevo Mensaje");
+      } else {
+        alert("se ha actualizado los datos del Mensaje ");
+      }
+      limpiarFormulario();
+      leer();
+    },
+  });
+}
+
+function editar(id) {
+  mostrarLista(false);
+  nuevo = false;
+  $("#titulo").text("Editar Mensaje");
+  var itemEncontrado = null;
+  for (const item of listaResultados) {
+    if (item.id === id) {
+      itemEncontrado = item;
+      break;
+    }
+  }
+
+  if (itemEncontrado !== null) {
+    $("#id").val(itemEncontrado.id);
+    $("#client_id").val(itemEncontrado.client.id);
+    $("#computer_id").val(itemEncontrado.computer.id);
+    $("#message").val(itemEncontrado.message_text);
+  }
+}
+
+function borrar(id) {
+  $.ajax({
+    url: urlMessage + "/" + id,
+    type: "DELETE",
+    contentType: "application/JSON",
+    datatype: "JSON",
+    success: function (respuesta) {
+      $("#resultado").empty();
+      leer();
+      alert("se ha eliminado.");
+    },
+  });
+}
+
+function limpiarFormulario() {
+  $("#id").val("0");
+  $("#client_id").val("");
+  $("#computer_id").val("");
+  $("#message").val("");
+}
+
+function crear() {
+  mostrarLista(false);
+  nuevo = true;
+  $("#titulo").text("Nuevo Mensaje");
+  limpiarFormulario();
+}
+function mostrarLista(mostrar) {
+  if (mostrar) {
+    $("#resultado").show();
+    $("#btnNuevo").show();
+    $("#formulario").hide();
+  } else {
+    $("#resultado").hide();
+    $("#formulario").show();
+    $("#btnNuevo").hide();
+  }
+}

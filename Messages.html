@@ -1,58 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>ALQUILAPC</title>
-    <script src="jquery.min.js"></script>
-    <script type="text/javascript"  src="js/Computers.js"> </script>
-    <script type="text/javascript"  src="js/Clients.js"> </script>
-    <script type="text/javascript"  src="js/Messages.js"> </script>
-    <script type="text/javascript"  src="js/Reservations.js"> </script>
+    <script src="js/config.js"> </script>    
+    <script src="js/jquery.min.js"></script>
+    <script src="js/Messages.js"> </script>    
+    <link rel="stylesheet" href="css/misEstilos.css">
+    <!-- CSS only -->
+
+    <script>
+        $(document).ready(function () {
+            leer();
+            llenarSelect('computer_id',urlComputer+'/all',['id','name']);
+            llenarSelect('client_id',urlClient+'/all',['id','name']);
+            
+        });
+    </script>
 
 </head>
+
 <body>
 
-<div class="container menu">
-    <div class="row" align="center">
+    <div class="container menu">
+        <div class="row" align="center">
 
-        <a href="/index.html">INICIO</a> &nbsp;
-        <a href="/Computers.html">COMPUTADORES</a> &nbsp;
-        <a href="/Clients.html">CLIENTES</a> &nbsp;
-        <a href="/Messages.html">MENSAJES</a>
-        <a href="/Reservation.html">RESERVACIONES</a>
-    </div>
+            <a href="/index.html">INICIO</a> &nbsp;
+            <a href="/Computers.html">COMPUTADORES</a> &nbsp;
+            <a href="/Clients.html">CLIENTES</a> &nbsp;
+            <a href="/Messages.html">MENSAJES</a>
+            <a href="/Reservation.html">RESERVACIONES</a>
+        </div>
 
-<H1 style="color:blue;" align="center">ALQUILA UN PC</H1>
-<hr size="6px" width="100%" align="center" color="gray"/>
-<hr size="5px" width="100%" align="center" color="blue"/>
-<hr size="6px" width="100%" align="center" color="gray"/>
-
-
-
-<br>
-<hr size="6px" width="100%" align="center" color="gray"/>
-<hr size="5px" width="100%" align="center" color="blue"/>
-<hr size="6px" width="100%" align="center" color="gray"/>
+        <H1 style="color:blue;" align="center">ALQUILA UN PC</H1>
+        <hr size="6px" width="100%" align="center" color="gray" />
+        <hr size="5px" width="100%" align="center" color="blue" />
+        <hr size="6px" width="100%" align="center" color="gray" />
 
 
 <h2 style="color:blue;" align="center">MENSAJES</h2>
-<button onclick="traerMensajes()">CONSULTAR </button>
-<br>
 
 
-<div>
-    <input type="number" id="idMensaje" placeholder="Id">
-    <input type="text" id="messagetext" placeholder="Mensaje">
+
+<div id="formulario">
+    <h3 id="titulo">Titulo</h3>
+    <input type="number" id="id" placeholder="id" hidden> <br>
+    
+    <label>Cliente:</label><select id="client_id"></select><br>
+    <label>Computador:</label><select id="computer_id"></select><br>
+    <label>Mensaje:</label><textarea  id="message"  required></textarea><br>
+
+
+    <button onclick="mostrarLista(true)">Cancelar</button>
+    <button onclick="guardar()">Guardar</button>
+
+
 </div>
-<br>
-<button onclick="guardarMensaje()">GUARDAR</button>
-<button onclick="editarMensaje()">ACTUALIZAR</button>
 
-<br>
-<hr size="6px" width="100%" align="center" color="gray"/>
-<hr size="6px" width="100%" align="center" color="gray"/>
 
-<br>
+<div id="lista">
+    <button id="btnNuevo" onclick="crear()">Nuevo</button>
+    <div id="resultado">
+
+    </div>
+</div>
 
 </body>
 </html>
