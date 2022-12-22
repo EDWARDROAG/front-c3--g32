@@ -1,4 +1,5 @@
 urlBase = "http://localhost:8080/api/";
+//urlBase = "http://140.238.152.178:8080/api/";
 urlMessage = urlBase + "Message";
 urlComputer = urlBase + "Computer";
 urlClient = urlBase + "Client";

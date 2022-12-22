@@ -5,7 +5,7 @@ nuevo = false;
 function leer() {
   $("#resultado").empty();
   $.ajax({
-    url: urlReservation + "/all",
+    url: urlCategory + "/all",
     type: "GET",
     datatype: "json",
     success: function (respuesta) {
@@ -23,13 +23,13 @@ function leer() {
 function listar(items) {
   let mytable = "<table class='resultadoList'>";
   mytable +=
-    "<tr><th>Id</th><th>Status</th><th>Cliente</th><th>Computador</th></tr>";
+    "<tr><th>Id</th><th>Descripcion</th><th>Nombre</th></tr>";
   for (i = 0; i < items.length; i++) {
     mytable += "<tr>";
     mytable += "<td>" + items[i].id + "</td>";
-    mytable += "<td>" + items[i].status + "</td>";
-    mytable += "<td>" + items[i].client.name + "</td>";
-    mytable += "<td>" + items[i].computer.name + "</td>";
+    mytable += "<td>" + items[i].description + "</td>";
+    mytable += "<td>" + items[i].name + "</td>";
+
 
     mytable +=
       "<td> <button onclick='editar(" +
@@ -46,26 +46,25 @@ function listar(items) {
 }
 
 function guardar() {
-  let newReservation = {
+  let newCategory = {
     id: $("#idCategory").val(),
-    client: { id: $("#client_id option:selected").val() },
-    computer: { id: $("#computer_id option:selected").val() },
-    status: $("#status").val(),
-
+    description: { id: $("#description_id option:selected").val() },
+    name: { id: $("#name_id option:selected").val() },
+    
   
   };
 
-  console.log(newReservation);
-  let dataTosend = JSON.stringify(newReservation);
+  console.log(newCategory);
+  let dataTosend = JSON.stringify(newCategory);
 
-  urlOperation = urlReservation;
+  urlOperation = urlCategory;
   typeOperation = "";
   if (nuevo) {
     typeOperation = "POST";
     urlOperation += "/save";
   } else {
     typeOperation = "PUT";
-    urlOperation+='/'+ newReservation.id
+    urlOperation+='/'+ newCategory.id
   }
 
   $.ajax({
@@ -79,9 +78,9 @@ function guardar() {
       limpiarFormulario();
       leer();
       if (nuevo) {
-        alert("se ha guardado una nueva reservar");
+        alert("se ha guardado una nueva categoria");
       } else {
-        alert("se ha actualizado los datos de la reserva ");
+        alert("se ha actualizado los datos de la categoria ");
       }
     },
   });
@@ -100,17 +99,17 @@ function editar(id) {
   }
 
   if (itemEncontrado !== null) {
-    $("#idReservation").val(itemEncontrado.id);
-    $("#status").val(itemEncontrado.status);
-    $("#client_id").val(itemEncontrado.client.id);
-    $("#computer_id").val(itemEncontrado.computer.id);
+    $("#idCategory").val(itemEncontrado.id);
+    $("#description").val(itemEncontrado.description);
+    $("#name_id").val(itemEncontrado.name.id);
+    
     
   }
 }
 
-function borrar(idreservation) {
+function borrar(idCategory) {
   $.ajax({
-    url: urlReservation + "/" + idreservation,
+    url: urlCategory + "/" + idCategory,
     type: "DELETE",
     contentType: "application/JSON",
     datatype: "JSON",
@@ -123,16 +122,16 @@ function borrar(idreservation) {
 }
 
 function limpiarFormulario(){
-  $("#id_Reservation").val("0");
-  $("#status").val("");
-  $("#client_id").val("");
-  $("#computer_id").val("");
+  $("#id_Category").val("0");
+  $("#description").val("");
+  $("#name_id").val("");
+  
 
 }
 function agregar() {
   mostrarLista(false);
   nuevo = true;
-  $("#titulo").text("Nueva Reserva");
+  $("#titulo").text("Nueva categoria");
   limpiarFormulario();
  
 }

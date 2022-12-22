@@ -6,8 +6,9 @@
     <title>ALQUILAPC</title>
     <script src="js/config.js"> </script>    
     <script src="js/jquery.min.js"></script>
-    <script src="js/Messages.js"> </script>    
+    <script src="js/Reservations.js"> </script>    
     <link rel="stylesheet" href="css/misEstilos.css">
+    
     <!-- CSS only -->
 
     <script>
@@ -40,17 +41,17 @@
         <hr size="6px" width="100%" align="center" color="gray" />
 
 
-<h2 style="color:blue;" align="center">MENSAJES</h2>
+<h2 style="color:blue;" align="center">RESERVACIONES</h2>
 
 
 
 <div id="formulario">
     <h3 id="titulo">Titulo</h3>
     <input type="number" id="id" placeholder="id" hidden> <br>
-
+    
     <label>Cliente:</label><select id="client_id"></select><br>
     <label>Computador:</label><select id="computer_id"></select><br>
-    <label>Mensaje:</label><textarea  id="message"  required></textarea><br>
+    <label>status:</label><input  id="status"  required></input><br>
 
 
     <button onclick="mostrarLista(true)">Cancelar</button>
@@ -59,8 +60,9 @@
 
 </div>
 
+
 <div id="lista">
-    <button id="btnNuevo" onclick="crear()">Nuevo</button>
+    <button id="btnNuevo" onclick="agregar()">Nuevo</button>
     <div id="resultado">
 
     </div>

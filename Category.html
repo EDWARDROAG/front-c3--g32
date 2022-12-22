@@ -6,7 +6,7 @@
     <title>ALQUILAPC</title>
     <script src="js/config.js"> </script>    
     <script src="js/jquery.min.js"></script>
-    <script src="js/Messages.js"> </script>    
+    <script src="js/Reservations.js"> </script>    
     <link rel="stylesheet" href="css/misEstilos.css">
     <!-- CSS only -->
 
@@ -31,7 +31,6 @@
             <a href="/Clients.html">CLIENTES</a> &nbsp;
             <a href="/Messages.html">MENSAJES</a>
             <a href="/Reservation.html">RESERVACIONES</a>
-            <a href="/Category.html">CATEGORIAS</a>
         </div>
 
         <H1 style="color:blue;" align="center">ALQUILA UN PC</H1>
@@ -40,18 +39,17 @@
         <hr size="6px" width="100%" align="center" color="gray" />
 
 
-<h2 style="color:blue;" align="center">MENSAJES</h2>
+<h2 style="color:blue;" align="center">CATEGORIAS</h2>
 
 
 
 <div id="formulario">
     <h3 id="titulo">Titulo</h3>
     <input type="number" id="id" placeholder="id" hidden> <br>
-
-    <label>Cliente:</label><select id="client_id"></select><br>
-    <label>Computador:</label><select id="computer_id"></select><br>
-    <label>Mensaje:</label><textarea  id="message"  required></textarea><br>
-
+    
+    <label>Description:</label><select id="description_id"></select><br>
+    <label>Name:</label><select id="name_id"></select><br>
+   
 
     <button onclick="mostrarLista(true)">Cancelar</button>
     <button onclick="guardar()">Guardar</button>
@@ -59,8 +57,9 @@
 
 </div>
 
+
 <div id="lista">
-    <button id="btnNuevo" onclick="crear()">Nuevo</button>
+    <button id="btnNuevo" onclick="agregar()">Nuevo</button>
     <div id="resultado">
 
     </div>
